@@ -1,0 +1,35 @@
+/*
+Theme Name: Harbor
+Description: Theme for Harbor & Pine Bakery, built by a previous agency in 2017.
+Version: 1.3
+Requires PHP: 5.6
+*/
+
+:root { --ink: #2b2118; --paper: #fbf6ee; --crust: #b5672b; --line: #e6d9c6; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 Georgia, "Times New Roman", serif; }
+a { color: var(--crust); }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+.site-header { border-bottom: 1px solid var(--line); background: #fff; }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 18px; padding-bottom: 18px; }
+.brand { font-size: 26px; font-weight: bold; text-decoration: none; color: var(--ink); }
+.brand small { display: block; font-size: 13px; font-weight: normal; color: #7a6a58; }
+.site-nav a { margin-left: 22px; text-decoration: none; color: var(--ink); }
+
+.hero { background: var(--ink); color: var(--paper); padding: 72px 0; }
+.hero h1 { font-size: 44px; line-height: 1.15; margin: 0 0 12px; max-width: 620px; }
+.hero p { font-size: 19px; margin: 0; max-width: 560px; color: #e8dccb; }
+.hero .button { display: inline-block; margin-top: 26px; background: var(--crust); color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 3px; }
+
+main { padding: 48px 0 64px; }
+main h1 { font-size: 34px; margin-top: 0; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.card { background: #fff; border: 1px solid var(--line); padding: 24px; }
+.menu-list { list-style: none; padding: 0; }
+.menu-list li { display: flex; justify-content: space-between; border-bottom: 1px dotted var(--line); padding: 10px 0; }
+
+.wpcf7 input[type=text], .wpcf7 input[type=email], .wpcf7 textarea { width: 100%; padding: 10px; border: 1px solid var(--line); font: inherit; background: #fff; }
+.wpcf7 input[type=submit] { background: var(--crust); color: #fff; border: 0; padding: 12px 26px; font: inherit; cursor: pointer; }
+
+.site-footer { border-top: 1px solid var(--line); padding: 28px 0; font-size: 14px; color: #7a6a58; }

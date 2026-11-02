@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{site}} — update report</title>
+<style>
+:root {
+  --bg: #f6f5f2; --paper: #ffffff; --ink: #1d1f22; --muted: #5f6368; --line: #e4e2dd;
+  --ok: #1e6b3a; --ok-bg: #e7f4ec; --warn: #8a5300; --warn-bg: #fdf1e1; --accent: #234a8a;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141517; --paper: #1c1e21; --ink: #e8e6e3; --muted: #a2a6ab; --line: #2e3136;
+    --ok: #7fd59c; --ok-bg: #1b2e22; --warn: #ffb95c; --warn-bg: #35281a; --accent: #9db8ec;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 900px; margin: 0 auto; padding: 32px 16px 64px; }
+header p { color: var(--muted); margin: 4px 0 0; }
+h1 { font-size: 1.7rem; line-height: 1.2; margin: 0; }
+h2 { font-size: 1.2rem; margin: 40px 0 12px; }
+h3 { font-size: 1.05rem; margin: 0 0 8px; }
+.lead { color: var(--muted); margin-top: -4px; }
+.status { margin-top: 24px; padding: 20px; border-radius: 12px; background: var(--ok-bg); color: var(--ok); }
+.status.partial { background: var(--warn-bg); color: var(--warn); }
+.status strong { display: block; font-size: 1.15rem; margin-bottom: 4px; }
+.status .platform { color: var(--ink); }
+.nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+.num { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 14px; color: var(--ink); }
+.num b { display: block; font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.num span { color: var(--muted); font-size: .9rem; }
+.table { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .85rem; color: var(--muted); font-weight: 600; }
+td:last-child { color: var(--muted); font-size: .92rem; }
+tr:last-child td { border-bottom: 0; }
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+.card ul { margin: 0 0 10px; padding-left: 20px; }
+.card p { margin: 8px 0 0; }
+.ok { color: var(--ok); font-weight: 600; }
+.warn { color: var(--warn); font-weight: 600; }
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px; }
+.shots figure { margin: 0; }
+.shots img { width: 100%; max-height: 420px; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+.shots figcaption { color: var(--muted); font-size: .85rem; }
+ol.how { padding-left: 22px; }
+ol.how li { margin-bottom: 8px; }
+ol.timeline { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
+ol.timeline li { position: relative; padding: 0 0 14px 18px; }
+ol.timeline li::before { content: ""; position: absolute; left: -6px; top: 7px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+ol.timeline time { display: block; color: var(--muted); font-size: .85rem; }
+footer { margin-top: 48px; color: var(--muted); font-size: .85rem; }
+@media (max-width: 600px) { .nums { grid-template-columns: 1fr; } h1 { font-size: 1.4rem; } }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>{{site}}: software updates</h1>
+  <p>Update report · {{date}}</p>
+</header>
+
+<div class="status{{statusClass}}">
+  <strong>{{headline}}</strong>
+  <span class="platform">{{platform}}</span>
+  <div class="nums">
+    <div class="num"><b>{{nDone}}</b><span>updates installed and checked</span></div>
+    <div class="num"><b>{{nCaught}}</b><span>problems caught and undone before going live</span></div>
+    <div class="num"><b>{{nHeld}}</b><span>updates waiting</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>What was updated</h2>
+  <p class="lead">One at a time, in an order where each update lands on a site that meets its requirements.</p>
+  <div class="table"><table>
+    <tr><th>Part of the site</th><th>Was</th><th>Now</th><th>Checked after the update</th></tr>
+    {{rows}}
+  </table></div>
+</section>
+
+<section>
+  <h2>Problems caught before your visitors saw them</h2>
+  {{caught}}
+</section>
+
+<section>
+  <h2>Still waiting</h2>
+  {{waiting}}
+</section>
+
+<section>
+  <h2>How every step was checked</h2>
+  <ol class="how">
+    <li>Before each update, a full copy of the site's files and database was saved.</li>
+    <li>After it, the key pages were opened in a real browser: home, menu, visit, contact and the login page.</li>
+    <li>Each page was compared picture-by-picture with the last version that was known to be good.</li>
+    <li>A test message was sent through the contact form and had to arrive in the mailbox.</li>
+    <li>The server's error log was read for anything new.</li>
+    <li>If anything failed, the saved copy went back in place, and the same checks confirmed the site was exactly as before.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Passes</h2>
+  <ol class="timeline">{{runs}}</ol>
+</section>
+
+<footer>The technical log for each pass (versions, error messages, measurements) is kept next to this report as run.md.</footer>
+</main>
+</body>
+</html>

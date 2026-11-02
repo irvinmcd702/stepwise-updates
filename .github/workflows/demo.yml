@@ -1,0 +1,32 @@
+name: demo
+on: [push, pull_request]
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci --no-fund --no-audit && npm test
+        working-directory: tool
+
+  end-to-end:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Lab credentials
+        run: printf 'DB_PASSWORD=%s\nADMIN_USER=harborpine\nADMIN_PASSWORD=%s\n' "$(openssl rand -hex 12)" "$(openssl rand -hex 12)" > lab/.env
+      - name: Outdated site → plan → two passes → owner report
+        run: ./demo.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports
+          path: |
+            runs/owner-report.html
+            runs/*/run.md
+            runs/*/run.json

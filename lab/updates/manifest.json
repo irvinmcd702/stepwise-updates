@@ -1,0 +1,6 @@
+{
+  "_comment": "Updates that do not come from wordpress.org: premium plugins delivered by the vendor as a folder or zip.",
+  "plugins": {
+    "harbor-hours": { "version": "2.0", "dir": "harbor-hours-2.0", "requires_php": "7.4", "requires": "6.0" }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "stepwise",
+  "private": true,
+  "type": "module",
+  "bin": { "stepwise": "stepwise.mjs" },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0",
+    "puppeteer-core": "^25.16.0"
+  }
+}
