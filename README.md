@@ -89,6 +89,8 @@ A step that depends on a rolled-back one is skipped with the reason
 | 2 | PHP 8.3 | done |
 | 2 | Contact Form 7 6.2.4.1 | done, test message delivered |
 
+The full story, step by step: [docs/case-study.md](docs/case-study.md).
+
 Then `stepwise report` writes one page for the owner: what was updated, what
 was caught before visitors saw it (with before / after / difference
 screenshots), what is still waiting and why. Each pass also leaves `run.md`
